@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:think_fast/objects/questions.dart';
-import 'package:think_fast/screens/play/end_page.dart';
 import 'package:think_fast/screens/home.dart';
 
 class CustomPage extends StatelessWidget {
@@ -72,8 +71,10 @@ class _CustomPageAppState extends State<CustomPageApp> {
             children: [
               ElevatedButton(
                   onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => const Home()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const HomePage()));
                   },
                   child: const Text("Home")),
               ElevatedButton(

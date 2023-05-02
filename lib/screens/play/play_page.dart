@@ -1,8 +1,8 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
+import 'package:think_fast/screens/login.dart';
+
 import 'package:think_fast/objects/questions.dart';
-import 'package:think_fast/screens/play/end_page.dart';
+import 'package:think_fast/screens/play/leaderboard_page.dart';
 
 int countDownNumber = 3;
 
@@ -26,6 +26,8 @@ class PlayPageApp extends StatefulWidget {
 }
 
 class _PlayPageAppState extends State<PlayPageApp> {
+  final stopwatchTimer = Stopwatch();
+
   String _countDownText = "";
   double _countDownTextSize = 0;
   bool _finishedCountDown = false;
@@ -95,126 +97,124 @@ class _PlayPageAppState extends State<PlayPageApp> {
     return Scaffold(
         body: Material(
             color: Colors.blueGrey,
-            child: Stack(alignment: Alignment.topRight, children: [
-              Center(
-                child: IntrinsicHeight(
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                      IntrinsicWidth(
-                          child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                            Expanded(
-                              child: Container(
-                                  constraints: const BoxConstraints(
-                                    maxHeight: 120.0,
-                                    maxWidth: 120.0,
+            child: Center(
+              child: IntrinsicHeight(
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                    IntrinsicWidth(
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                          Expanded(
+                            child: Container(
+                                constraints: const BoxConstraints(
+                                  minHeight: 80.0,
+                                  maxHeight: 160.0,
+                                  maxWidth: 120.0,
+                                ),
+                                alignment: Alignment.centerLeft,
+                                padding: const EdgeInsets.only(
+                                    top: 5.0,
+                                    bottom: 5.0,
+                                    left: 10.0,
+                                    right: 10.0),
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(20.0)),
+                                margin: const EdgeInsets.only(
+                                    top: 30.0,
+                                    bottom: 40.0,
+                                    left: 10.0,
+                                    right: 10.0),
+                                width: 1000000.0, // Max Width
+                                height: 800.0,
+                                child: Text(
+                                  _currentQuestionString,
+                                  style: TextStyle(
+                                    fontSize: _questionFontSize,
                                   ),
-                                  alignment: Alignment.centerLeft,
-                                  padding: const EdgeInsets.only(
-                                      top: 5.0,
-                                      bottom: 5.0,
-                                      left: 10.0,
-                                      right: 10.0),
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius:
-                                          BorderRadius.circular(20.0)),
-                                  margin: const EdgeInsets.only(
-                                      top: 30.0,
-                                      bottom: 40.0,
-                                      left: 10.0,
-                                      right: 10.0),
-                                  width: 1000000.0, // Max Width
-                                  height: 800.0,
-                                  child: Text(
-                                    _currentQuestionString,
-                                    style: TextStyle(
-                                      fontSize: _questionFontSize,
-                                    ),
-                                  )),
-                            ),
-                            Container(
-                              width: 50.0,
-                              margin: const EdgeInsets.all(10.0),
-                              child: Text("$_timer",
-                                  style: const TextStyle(
-                                      fontSize: 40.0, color: Colors.white)),
-                            ),
-                          ])),
-                      Expanded(
-                          child: Container(
-                              height: 100,
-                              margin: const EdgeInsets.only(
-                                  top: 10.0,
-                                  bottom: 10.0,
-                                  left: 30.0,
-                                  right: 30.0),
-                              child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                    backgroundColor: boxColorChoice1),
-                                onPressed: _checkAnswerChoice1,
-                                child: Text(choice1,
-                                    style: TextStyle(
-                                        fontSize: _choice1FontSize,
-                                        fontWeight: FontWeight.bold)),
-                              ))),
-                      Expanded(
-                          child: Container(
-                              height: 100,
-                              margin: const EdgeInsets.only(
-                                  top: 10.0,
-                                  bottom: 10.0,
-                                  left: 30.0,
-                                  right: 30.0),
-                              child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                    backgroundColor: boxColorChoice2),
-                                onPressed: _checkAnswerChoice2,
-                                child: Text(choice2,
-                                    style: TextStyle(
-                                        fontSize: _choice2FontSize,
-                                        fontWeight: FontWeight.bold)),
-                              ))),
-                      Expanded(
-                          child: Container(
-                              height: 100,
-                              margin: const EdgeInsets.only(
-                                  top: 10.0,
-                                  bottom: 10.0,
-                                  left: 30.0,
-                                  right: 30.0),
-                              child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                    backgroundColor: boxColorChoice3),
-                                onPressed: _checkAnswerChoice3,
-                                child: Text(choice3,
-                                    style: TextStyle(
-                                        fontSize: _choice3FontSize,
-                                        fontWeight: FontWeight.bold)),
-                              ))),
-                      Expanded(
-                          child: Container(
-                              height: 100,
-                              margin: const EdgeInsets.only(
-                                  top: 10.0,
-                                  bottom: 10.0,
-                                  left: 30.0,
-                                  right: 30.0),
-                              child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                    backgroundColor: boxColorChoice4),
-                                onPressed: _checkAnswerChoice4,
-                                child: Text(choice4,
-                                    style: TextStyle(
-                                        fontSize: _choice4FontSize,
-                                        fontWeight: FontWeight.bold)),
-                              ))),
-                    ])),
-              )
-            ])));
+                                )),
+                          ),
+                          Container(
+                            width: 50.0,
+                            margin: const EdgeInsets.all(10.0),
+                            child: Text("$_timer",
+                                style: const TextStyle(
+                                    fontSize: 40.0, color: Colors.white)),
+                          ),
+                        ])),
+                    Expanded(
+                        child: Container(
+                            height: 100,
+                            margin: const EdgeInsets.only(
+                                top: 10.0,
+                                bottom: 10.0,
+                                left: 30.0,
+                                right: 30.0),
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: boxColorChoice1),
+                              onPressed: _checkAnswerChoice1,
+                              child: Text(choice1,
+                                  style: TextStyle(
+                                      fontSize: _choice1FontSize,
+                                      fontWeight: FontWeight.bold)),
+                            ))),
+                    Expanded(
+                        child: Container(
+                            height: 100,
+                            margin: const EdgeInsets.only(
+                                top: 10.0,
+                                bottom: 10.0,
+                                left: 30.0,
+                                right: 30.0),
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: boxColorChoice2),
+                              onPressed: _checkAnswerChoice2,
+                              child: Text(choice2,
+                                  style: TextStyle(
+                                      fontSize: _choice2FontSize,
+                                      fontWeight: FontWeight.bold)),
+                            ))),
+                    Expanded(
+                        child: Container(
+                            height: 100,
+                            margin: const EdgeInsets.only(
+                                top: 10.0,
+                                bottom: 10.0,
+                                left: 30.0,
+                                right: 30.0),
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: boxColorChoice3),
+                              onPressed: _checkAnswerChoice3,
+                              child: Text(choice3,
+                                  style: TextStyle(
+                                      fontSize: _choice3FontSize,
+                                      fontWeight: FontWeight.bold)),
+                            ))),
+                    Expanded(
+                        child: Container(
+                            height: 100,
+                            margin: const EdgeInsets.only(
+                                top: 10.0,
+                                bottom: 10.0,
+                                left: 30.0,
+                                right: 30.0),
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: boxColorChoice4),
+                              onPressed: _checkAnswerChoice4,
+                              child: Text(choice4,
+                                  style: TextStyle(
+                                      fontSize: _choice4FontSize,
+                                      fontWeight: FontWeight.bold)),
+                            ))),
+                  ])),
+            )));
   }
 
   void _startGame() async {
@@ -232,6 +232,7 @@ class _PlayPageAppState extends State<PlayPageApp> {
     });
     await Future.delayed(const Duration(seconds: 1));
     setState(() {
+      currentPlayer.playerScore = 0;
       _finishedCountDown = true; // Count Down Finished and Game Started
     });
     startTimer();
@@ -286,12 +287,7 @@ class _PlayPageAppState extends State<PlayPageApp> {
   }
 
   void _checkAnswer(String answer) {
-    List<String> choiceList = [
-      choice1,
-      choice2,
-      choice3,
-      choice4
-    ]; // List of Choices
+    stopwatchTimer.stop();
 
     answered = true;
     if (_currentQuestion.correctAnswer.contains(answer)) {
@@ -321,10 +317,16 @@ class _PlayPageAppState extends State<PlayPageApp> {
   }
 
   void startTimer() async {
-    _timer = 60;
+    stopwatchTimer.start();
+    Stopwatch itemStopwatch = Stopwatch()..start();
+
+    int maxTime = 60;
+    int totalTime = maxTime - 1;
+    _timer = totalTime - stopwatchTimer.elapsed.inSeconds;
     while (_timer > 0) {
       setState(() {
-        _timer--;
+        _timer = totalTime - stopwatchTimer.elapsed.inSeconds;
+        _timer = _timer <= 0 ? 0 : _timer;
       });
 
       if (!isQuestionAvailable) {
@@ -332,37 +334,64 @@ class _PlayPageAppState extends State<PlayPageApp> {
       }
       if (answered) {
         answered = false;
-        await Future.delayed(const Duration(seconds: 1));
+        if (correct) {
+          // if answer is correct then add score
+          int scoreAdd = 15 - itemStopwatch.elapsedMilliseconds ~/ 600;
+          currentPlayer.playerScore += scoreAdd > 1 ? scoreAdd : 1;
+        } else {
+          // if answer is incorrect then subtract score
+          currentPlayer.playerScore -= currentPlayer.playerScore <= 5 ? 0 : 5;
+        }
+        itemStopwatch.reset();
+
+        await Future.delayed(const Duration(milliseconds: 500));
+        stopwatchTimer.start();
 
         if (correct) {
+          // if answer is correct then add time
           setState(() {
-            _timer += 2;
+            totalTime += 2;
           });
           correct = false;
         } else {
+          // if answer is incorrect then subtract time
           setState(() {
-            _timer -= 6;
+            totalTime -= 6;
           });
         }
         questions.remove(_currentQuestion);
         if (questions.isEmpty) {
+          goToLeaderboardPage();
           isQuestionAvailable = false;
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const EndPage()),
-          );
+          break;
         } else {
           _currentQuestion = questions[0];
           _currentQuestionString = _currentQuestion.question;
           _shuffleChoices();
+          if (_currentQuestionString.length > 80) {
+            _questionFontSize = _currentQuestionString.length / 8;
+          } else if (_currentQuestionString.length > 40) {
+            _questionFontSize = 5 + _currentQuestionString.length / 5;
+          } else if (_currentQuestionString.length > 30) {
+            _questionFontSize = 10 + _currentQuestionString.length / 4;
+          } else {
+            _questionFontSize = 20 + _currentQuestionString.length / 2;
+          }
         }
         resetBoxColor();
       }
       await Future.delayed(const Duration(seconds: 1));
     }
+    stopwatchTimer.stop();
+    if (questions.isNotEmpty) {
+      goToLeaderboardPage();
+    }
+  }
+
+  void goToLeaderboardPage() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const EndPage()),
+      MaterialPageRoute(builder: (context) => const LeaderboardPage()),
     );
   }
 }

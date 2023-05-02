@@ -1,5 +1,3 @@
-import 'dart:math';
-
 class QuestionItem {
   Map<bool, List<String>> answerMap = {true: [], false: []};
   String questionString = "";
@@ -142,7 +140,7 @@ print(randomList[2]);
     });
 
     QuestionItem question10 = QuestionItem(
-        "Programming paradigm that involves objects with closely  linked methods (functions) and  data encapsulation?",
+        "Programming paradigm that involves objects with closely linked methods (functions) and  data encapsulation?",
         {
           true: ["Object Oriented Programming"],
           false: [
