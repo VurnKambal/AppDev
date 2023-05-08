@@ -57,28 +57,28 @@ class Leaderboard {
     sortPlayers();
   }
 
-  void removePlayer(Player player) {
-    _players.remove(player);
-  }
+  // void removePlayer(Player player) {
+  //   _players.remove(player);
+  // }
 
   void sortPlayers() {
-    _players.sort((a, b) => b.score.compareTo(a.score));
+    _players.sort((a, b) => b.score.compareTo(a.highScore));
   }
 
-  void resetScores() {
-    for (Player player in _players) {
-      player.resetScore();
-    }
-  }
+  // void resetScores() {
+  //   for (Player player in _players) {
+  //     player.resetScore();
+  //   }
+  // }
 
-  void resetLeaderboard() {
-    _players = [];
-  }
+  // void resetLeaderboard() {
+  //   _players = [];
+  // }
 
-  void resetLeaderboardScores() {
-    resetScores();
-    resetLeaderboard();
-  }
+  // void resetLeaderboardScores() {
+  //   resetScores();
+  //   resetLeaderboard();
+  // }
 
   Player getPlayer(String username) {
     for (Player player in _players) {

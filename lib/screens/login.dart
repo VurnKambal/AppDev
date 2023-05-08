@@ -38,7 +38,7 @@ class _LoginAppState extends State<LoginApp> {
         const Text(
           "?Fast",
           style: TextStyle(
-              fontFamily: "Fast", fontSize: 120, color: Color(0xFFB65750)),
+              fontFamily: "Fast", fontSize: 100, color: Color(0xFFB65750)),
         ),
         Container(
           height: 100.0,

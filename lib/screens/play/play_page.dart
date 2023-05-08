@@ -38,11 +38,11 @@ class _PlayPageAppState extends State<PlayPageApp> {
   String choice2 = "";
   String choice3 = "";
   String choice4 = "";
-  double _questionFontSize = 20;
-  double _choice1FontSize = 20;
-  double _choice2FontSize = 20;
-  double _choice3FontSize = 20;
-  double _choice4FontSize = 20;
+  static const double _questionFontSize = 30;
+  static double _choice1FontSize = 20;
+  static double _choice2FontSize = 20;
+  static double _choice3FontSize = 20;
+  static double _choice4FontSize = 20;
 
   static const Color textColor = Colors.black;
   Color boxColorDefault = boxdefault;
@@ -111,8 +111,6 @@ class _PlayPageAppState extends State<PlayPageApp> {
                           Expanded(
                             child: Container(
                                 constraints: const BoxConstraints(
-                                  minHeight: 80.0,
-                                  maxHeight: 160.0,
                                   maxWidth: 120.0,
                                 ),
                                 alignment: Alignment.centerLeft,
@@ -129,24 +127,23 @@ class _PlayPageAppState extends State<PlayPageApp> {
                                     bottom: 40.0,
                                     left: 10.0,
                                     right: 10.0),
-                                width: 1000000.0, // Max Width
-                                height: 800.0,
+                                width: 1000.0, // Max Width
+                                height: 240.0,
                                 child: Text(
                                   _currentQuestionString,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontSize: _questionFontSize,
                                   ),
                                 )),
                           ),
                           Container(
+                            width: 120,
                             margin: const EdgeInsets.all(10.0),
-                            child: FittedBox(
-                              child: Text("$_timer",
-                                  style: const TextStyle(
-                                      fontFamily: "Airbeat",
-                                      fontSize: 60.0,
-                                      color: textColor)),
-                            ),
+                            child: Text("$_timer",
+                                style: const TextStyle(
+                                    fontFamily: "Airbeat",
+                                    fontSize: 60.0,
+                                    color: textColor)),
                           )
                         ])),
                     Expanded(
@@ -232,7 +229,7 @@ class _PlayPageAppState extends State<PlayPageApp> {
     }
     setState(() {
       _countDownText = "Good\nLuck!";
-      _countDownTextSize = 100.0;
+      _countDownTextSize = 90.0;
     });
     await Future.delayed(const Duration(seconds: 1));
     setState(() {
@@ -384,15 +381,6 @@ class _PlayPageAppState extends State<PlayPageApp> {
           _currentQuestion = questions[0];
           _currentQuestionString = _currentQuestion.question;
           _shuffleChoices();
-          if (_currentQuestionString.length > 80) {
-            _questionFontSize = _currentQuestionString.length / 8;
-          } else if (_currentQuestionString.length > 40) {
-            _questionFontSize = 5 + _currentQuestionString.length / 5;
-          } else if (_currentQuestionString.length > 30) {
-            _questionFontSize = 10 + _currentQuestionString.length / 4;
-          } else {
-            _questionFontSize = 20 + _currentQuestionString.length / 2;
-          }
         }
         resetBoxColor();
         answered = false;
