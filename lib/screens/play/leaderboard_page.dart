@@ -67,7 +67,7 @@ class _LeaderboardPageAppState extends State<LeaderboardPageApp> {
                                 Text(
                                   leaderboard.getPlayers[index].playerName,
                                   style: const TextStyle(
-                                      fontFamily: "Airbeat",
+                                      fontFamily: "Tommy",
                                       color: Colors.white,
                                       fontSize: 30.0),
                                 ),
