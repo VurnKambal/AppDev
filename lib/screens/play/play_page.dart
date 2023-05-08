@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:think_fast/screens/login.dart';
-
-import 'package:think_fast/objects/questions.dart';
+import 'package:think_fast/assets/questions.dart';
 import 'package:think_fast/screens/play/leaderboard_page.dart';
-
-int countDownNumber = 3;
+import 'package:think_fast/assets/variables.dart';
 
 class PlayPage extends StatelessWidget {
   const PlayPage({Key? key}) : super(key: key);
@@ -46,11 +44,12 @@ class _PlayPageAppState extends State<PlayPageApp> {
   double _choice3FontSize = 20;
   double _choice4FontSize = 20;
 
-  Color boxColorDefault = Colors.blue;
-  Color boxColorChoice1 = Colors.blue;
-  Color boxColorChoice2 = Colors.blue;
-  Color boxColorChoice3 = Colors.blue;
-  Color boxColorChoice4 = Colors.blue;
+  static const Color textColor = Colors.black;
+  Color boxColorDefault = boxdefault;
+  Color boxColorChoice1 = boxdefault;
+  Color boxColorChoice2 = boxdefault;
+  Color boxColorChoice3 = boxdefault;
+  Color boxColorChoice4 = boxdefault;
   Color boxColorCorrect = Colors.green;
   Color boxColorIncorrect = Colors.red;
 
@@ -66,9 +65,9 @@ class _PlayPageAppState extends State<PlayPageApp> {
     _shuffleQuestions();
     _currentQuestion = questions[0];
     _currentQuestionString = _currentQuestion.question;
-
     _shuffleChoices();
 
+    _timer = questions.length * 5;
     _startGame();
   }
 
@@ -84,11 +83,13 @@ class _PlayPageAppState extends State<PlayPageApp> {
   Widget countDownScaffold() {
     return Scaffold(
         body: Material(
-      color: Colors.blueGrey,
+      color: backgroundColor,
       child: Center(
         child: Text(_countDownText,
-            style:
-                TextStyle(fontSize: _countDownTextSize, color: Colors.white)),
+            style: TextStyle(
+                fontFamily: "Airbeat",
+                fontSize: _countDownTextSize,
+                color: textColor)),
       ),
     ));
   }
@@ -96,7 +97,7 @@ class _PlayPageAppState extends State<PlayPageApp> {
   Widget playScaffold() {
     return Scaffold(
         body: Material(
-            color: Colors.blueGrey,
+            color: backgroundColor,
             child: Center(
               child: IntrinsicHeight(
                   child: Column(
@@ -138,12 +139,15 @@ class _PlayPageAppState extends State<PlayPageApp> {
                                 )),
                           ),
                           Container(
-                            width: 50.0,
                             margin: const EdgeInsets.all(10.0),
-                            child: Text("$_timer",
-                                style: const TextStyle(
-                                    fontSize: 40.0, color: Colors.white)),
-                          ),
+                            child: FittedBox(
+                              child: Text("$_timer",
+                                  style: const TextStyle(
+                                      fontFamily: "Airbeat",
+                                      fontSize: 60.0,
+                                      color: textColor)),
+                            ),
+                          )
                         ])),
                     Expanded(
                         child: Container(
@@ -288,25 +292,38 @@ class _PlayPageAppState extends State<PlayPageApp> {
 
   void _checkAnswer(String answer) {
     stopwatchTimer.stop();
+    List<String> correctAnswer = _currentQuestion.correctAnswer;
 
-    answered = true;
-    if (_currentQuestion.correctAnswer.contains(answer)) {
+    if (correctAnswer.contains(answer)) {
       correct = true;
       // point +1, time +5
     }
 
-    boxColorChoice1 = _currentQuestion.correctAnswer.contains(choice1)
-        ? boxColorCorrect
-        : boxColorIncorrect;
-    boxColorChoice2 = _currentQuestion.correctAnswer.contains(choice2)
-        ? boxColorCorrect
-        : boxColorIncorrect;
-    boxColorChoice3 = _currentQuestion.correctAnswer.contains(choice3)
-        ? boxColorCorrect
-        : boxColorIncorrect;
-    boxColorChoice4 = _currentQuestion.correctAnswer.contains(choice4)
-        ? boxColorCorrect
-        : boxColorIncorrect;
+    // Selected Answer and Correct Answer
+    if (!answered) {
+      answered = true;
+      if (_currentQuestion.correctAnswer.contains(choice1) ||
+          choice1 == answer) {
+        boxColorChoice1 = _currentQuestion.correctAnswer.contains(choice1)
+            ? boxColorCorrect
+            : boxColorIncorrect;
+      }
+      if (correctAnswer.contains(choice2) || choice2 == answer) {
+        boxColorChoice2 = _currentQuestion.correctAnswer.contains(choice2)
+            ? boxColorCorrect
+            : boxColorIncorrect;
+      }
+      if (correctAnswer.contains(choice3) || choice3 == answer) {
+        boxColorChoice3 = _currentQuestion.correctAnswer.contains(choice3)
+            ? boxColorCorrect
+            : boxColorIncorrect;
+      }
+      if (correctAnswer.contains(choice4) || choice4 == answer) {
+        boxColorChoice4 = _currentQuestion.correctAnswer.contains(choice4)
+            ? boxColorCorrect
+            : boxColorIncorrect;
+      }
+    }
   }
 
   void resetBoxColor() {
@@ -320,8 +337,8 @@ class _PlayPageAppState extends State<PlayPageApp> {
     stopwatchTimer.start();
     Stopwatch itemStopwatch = Stopwatch()..start();
 
-    int maxTime = 60;
-    int totalTime = maxTime - 1;
+    int maxTime = _timer;
+    int totalTime = maxTime;
     _timer = totalTime - stopwatchTimer.elapsed.inSeconds;
     while (_timer > 0) {
       setState(() {
@@ -333,7 +350,6 @@ class _PlayPageAppState extends State<PlayPageApp> {
         break;
       }
       if (answered) {
-        answered = false;
         if (correct) {
           // if answer is correct then add score
           int scoreAdd = 15 - itemStopwatch.elapsedMilliseconds ~/ 600;
@@ -379,8 +395,10 @@ class _PlayPageAppState extends State<PlayPageApp> {
           }
         }
         resetBoxColor();
+        answered = false;
+      } else {
+        await Future.delayed(const Duration(seconds: 1));
       }
-      await Future.delayed(const Duration(seconds: 1));
     }
     stopwatchTimer.stop();
     if (questions.isNotEmpty) {

@@ -167,4 +167,3 @@ print(randomList[2]);
 
 QuestionList questionList = QuestionList();
 List<QuestionItem> questions = questionList.getQuestions;
-bool isQuestionAvailable = true;

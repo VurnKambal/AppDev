@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:think_fast/screens/custom_page.dart';
 import 'package:think_fast/screens/login.dart';
 import 'package:think_fast/screens/play/play_page.dart';
-import 'package:think_fast/objects/questions.dart';
-import 'package:think_fast/objects/player.dart';
+import 'package:think_fast/assets/questions.dart';
+import 'package:think_fast/assets/player.dart';
+import 'package:think_fast/assets/variables.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -40,57 +41,44 @@ class _HomeAppState extends State<HomeApp> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Material(
-        color: Colors.blueGrey,
+        color: backgroundColor,
         child: Center(
             child:
                 Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           Container(
-            height: 90.0,
-            width: 800.0,
-            alignment: Alignment.center,
-            margin: const EdgeInsets.all(10.0),
-            decoration: BoxDecoration(
-                color: Colors.white, borderRadius: BorderRadius.circular(20.0)),
-            child: const Text("Think Fast",
-                style: TextStyle(fontSize: 40.0, color: Colors.black)),
-          ),
-          Container(
               height: 75.0,
               width: 300.0,
               margin: const EdgeInsets.all(10.0),
               child: ElevatedButton(
+                style: buttonStyle,
                 onPressed: goToPlayPage,
-                child: const Text("Play",
-                    style:
-                        TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
+                child: const Text("Play", style: buttonTextStyle),
               )),
           Container(
               height: 75.0,
               width: 300.0,
               margin: const EdgeInsets.all(10.0),
               child: ElevatedButton(
+                style: buttonStyle,
                 onPressed: goToCustomPage,
-                child: const Text("Customize",
-                    style:
-                        TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
+                child: const Text("Customize", style: buttonTextStyle),
               )),
-        ])),
-      ),
-      persistentFooterButtons: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            ElevatedButton(
+          Container(
+              height: 50.0,
+              width: 200.0,
+              margin: const EdgeInsets.all(10.0),
+              child: ElevatedButton(
+                style: buttonStyle,
                 onPressed: () {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => const LoginPage()));
                 },
-                child: const Text("Log Out")),
-          ],
-        )
-      ],
+                child: const Text("Log out", style: buttonTextStylelogout),
+              )),
+        ])),
+      ),
     );
   }
 

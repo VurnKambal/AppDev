@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:think_fast/objects/player.dart';
+import 'package:think_fast/main.dart';
+import 'package:think_fast/assets/player.dart';
 import 'package:think_fast/screens/home.dart';
-
-Player currentPlayer = Player();
+import 'package:think_fast/assets/variables.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -32,12 +32,17 @@ class _LoginAppState extends State<LoginApp> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Material(
-      color: Colors.blueGrey,
+      color: backgroundColor,
       child: Center(
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+        const Text(
+          "?Fast",
+          style: TextStyle(
+              fontFamily: "Fast", fontSize: 120, color: Color(0xFFB65750)),
+        ),
         Container(
-          height: 90.0,
-          width: 800.0,
+          height: 100.0,
+          width: 350.0,
           alignment: Alignment.center,
           margin: const EdgeInsets.all(10.0),
           child: TextField(
@@ -47,18 +52,21 @@ class _LoginAppState extends State<LoginApp> {
               });
             },
             maxLines: 1,
-            style: const TextStyle(fontSize: 20.0, color: Colors.white),
+            style: const TextStyle(
+                fontFamily: "Tommy",
+                color: Colors.white,
+                fontSize: 50.0,
+                fontWeight: FontWeight.bold),
+            textAlign: TextAlign.center,
             decoration: const InputDecoration(
+              enabledBorder: OutlineInputBorder(),
               filled: true,
-              fillColor: Colors.black,
-              isDense: true,
-              labelStyle: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold),
-              labelText: 'Username',
-              hintText: 'Enter username',
-              hintStyle: TextStyle(color: Colors.black, fontSize: 30.0),
+              fillColor: Color.fromARGB(255, 0, 0, 0),
+              hintText: 'Username',
+              hintStyle: TextStyle(
+                  fontFamily: "Airbeat",
+                  color: Color.fromARGB(255, 90, 82, 86),
+                  fontSize: 30.0),
             ),
           ),
         ),
@@ -67,15 +75,10 @@ class _LoginAppState extends State<LoginApp> {
             width: 300.0,
             margin: const EdgeInsets.all(10.0),
             child: ElevatedButton(
+              style: buttonStyle,
               onPressed: _loginPlayer,
-              child: const Text("Login",
-                  style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
+              child: const Text("Login", style: buttonTextStyle),
             )),
-        const Text(
-          "Developed By: Batiller, Verneil Kent S.  CS - 202",
-          style: TextStyle(
-              color: Colors.white, fontSize: 15, fontStyle: FontStyle.italic),
-        )
       ])),
     ));
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:think_fast/objects/questions.dart';
+import 'package:think_fast/assets/questions.dart';
 import 'package:think_fast/screens/home.dart';
+import 'package:think_fast/assets/variables.dart';
 
 class CustomPage extends StatelessWidget {
   const CustomPage({Key? key}) : super(key: key);
@@ -27,10 +28,10 @@ class _CustomPageAppState extends State<CustomPageApp> {
   String _incorrectChoice1 = "";
   String _incorrectChoice2 = "";
   String _incorrectChoice3 = "";
-  Color boxColorChoice1 = Colors.blue;
-  Color boxColorChoice2 = Colors.blue;
-  Color boxColorChoice3 = Colors.blue;
-  Color boxColorChoice4 = Colors.blue;
+  Color boxColorChoice1 = boxdefault;
+  Color boxColorChoice2 = boxdefault;
+  Color boxColorChoice3 = boxdefault;
+  Color boxColorChoice4 = boxdefault;
   Color boxColorCorrect = Colors.green;
   Color boxColorIncorrect = Colors.red;
 
@@ -65,188 +66,188 @@ class _CustomPageAppState extends State<CustomPageApp> {
 
   Widget customizeScaffold() {
     return Scaffold(
-        persistentFooterButtons: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const HomePage()));
-                  },
-                  child: const Text("Home")),
-              ElevatedButton(
-                  onPressed: _saveQuestion, child: const Text("Save")),
-            ],
-          )
-        ],
-        body: Material(
-          color: Colors.blueGrey,
-          child: Center(
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                IntrinsicHeight(
-                    child: IntrinsicHeight(
-                        child: Container(
-                            margin: const EdgeInsets.only(
-                                top: 30.0,
-                                bottom: 20.0,
-                                left: 10.0,
-                                right: 10.0),
-                            width: 1000000.0, // Max Width
-                            height: 120.0,
-                            alignment: Alignment.centerLeft,
-                            child: TextField(
-                              onChanged: (String value) {
-                                setState(() {
-                                  _questionString = value;
-                                });
-                              },
-                              minLines: null,
-                              maxLines: null,
-                              expands: true,
-                              style: const TextStyle(fontSize: 20.0),
-                              decoration: const InputDecoration(
-                                filled: true,
-                                fillColor: Colors.lightBlue,
-                                isDense: true,
-                                labelStyle: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 20.0,
-                                    fontWeight: FontWeight.bold),
-                                border: OutlineInputBorder(),
-                                labelText: 'Question',
-                                hintText: 'What is the question?',
-                                hintStyle: TextStyle(
-                                    color: Colors.black, fontSize: 30.0),
-                              ),
-                              controller: questionFieldController,
-                            )))),
-                Expanded(
-                    child: Container(
-                        height: 100.0,
-                        margin: const EdgeInsets.only(left: 30.0, right: 30.0),
-                        child: TextField(
-                          onChanged: (String value) {
-                            setState(() {
-                              _correctChoice = value;
-                            });
-                          },
-                          controller: correctChoiceFieldController,
-                          style: const TextStyle(fontSize: 20.0),
-                          minLines: null,
-                          maxLines: null,
-                          expands: true,
-                          decoration: const InputDecoration(
+      body: Material(
+        color: backgroundColor,
+        child: Center(
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+              IntrinsicHeight(
+                  child: IntrinsicHeight(
+                      child: Container(
+                          margin: const EdgeInsets.only(
+                              top: 30.0, bottom: 20.0, left: 10.0, right: 10.0),
+                          width: 1000000.0, // Max Width
+                          height: 120.0,
+                          alignment: Alignment.centerLeft,
+                          child: TextField(
+                            onChanged: (String value) {
+                              setState(() {
+                                _questionString = value;
+                              });
+                            },
+                            minLines: null,
+                            maxLines: null,
+                            expands: true,
+                            style: buttonTextStyleTom,
+                            decoration: const InputDecoration(
+                              filled: true,
+                              fillColor: Colors.lightBlue,
+                              isDense: true,
+                              labelStyle: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 10.0,
+                                  fontWeight: FontWeight.bold),
+                              border: OutlineInputBorder(),
+                              hintText: 'What is the question?',
+                              hintStyle: hint,
+                            ),
+                            controller: questionFieldController,
+                          )))),
+              Expanded(
+                  child: Container(
+                      margin: const EdgeInsets.only(left: 30.0, right: 30.0),
+                      child: TextField(
+                        onChanged: (String value) {
+                          setState(() {
+                            _correctChoice = value;
+                          });
+                        },
+                        controller: correctChoiceFieldController,
+                        style: buttonTextStyleTom,
+                        minLines: null,
+                        maxLines: null,
+                        expands: true,
+                        decoration: const InputDecoration(
+                          filled: true,
+                          fillColor: Colors.blue,
+                          isDense: true,
+                          labelStyle: TextStyle(
+                              color: Colors.black,
+                              fontSize: 10.0,
+                              fontWeight: FontWeight.bold),
+                          border: OutlineInputBorder(),
+                          hintStyle: hint,
+                          hintText: 'Correct Choice',
+                        ),
+                      ))),
+              const Padding(
+                padding: EdgeInsets.all(10.0),
+              ),
+              Expanded(
+                  child: Container(
+                      height: 100.0,
+                      margin: const EdgeInsets.only(left: 30.0, right: 30.0),
+                      child: TextField(
+                        onChanged: (String value) {
+                          setState(() {
+                            _incorrectChoice1 = value;
+                          });
+                        },
+                        controller: incorrectChoice1FieldController,
+                        style: buttonTextStyleTom,
+                        minLines: null,
+                        maxLines: null,
+                        expands: true,
+                        decoration: const InputDecoration(
                             filled: true,
                             fillColor: Colors.blue,
                             isDense: true,
                             labelStyle: TextStyle(
                                 color: Colors.black,
-                                fontSize: 20.0,
+                                fontSize: 10.0,
                                 fontWeight: FontWeight.bold),
                             border: OutlineInputBorder(),
-                            labelText: 'Correct Choice',
-                            hintText: 'Answer 1',
-                          ),
-                        ))),
-                const Padding(
-                  padding: EdgeInsets.all(10.0),
-                ),
-                Expanded(
-                    child: Container(
-                        height: 100.0,
-                        margin: const EdgeInsets.only(left: 30.0, right: 30.0),
-                        child: TextField(
-                          onChanged: (String value) {
-                            setState(() {
-                              _incorrectChoice1 = value;
-                            });
-                          },
-                          controller: incorrectChoice1FieldController,
-                          style: const TextStyle(fontSize: 20.0),
-                          minLines: null,
-                          maxLines: null,
-                          expands: true,
-                          decoration: const InputDecoration(
-                              filled: true,
-                              fillColor: Colors.blue,
-                              isDense: true,
-                              labelStyle: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 20.0,
-                                  fontWeight: FontWeight.bold),
-                              border: OutlineInputBorder(),
-                              labelText: 'Incorrect Choice',
-                              hintText: 'Answer 2'),
-                        ))),
-                const Padding(
-                  padding: EdgeInsets.all(10.0),
-                ),
-                Expanded(
-                    child: Container(
-                        height: 100.0,
-                        margin: const EdgeInsets.only(left: 30.0, right: 30.0),
-                        child: TextField(
-                          onChanged: (String value) {
-                            setState(() {
-                              _incorrectChoice2 = value;
-                            });
-                          },
-                          controller: incorrectChoice2FieldController,
-                          style: const TextStyle(fontSize: 20.0),
-                          minLines: null,
-                          maxLines: null,
-                          expands: true,
-                          decoration: const InputDecoration(
-                              filled: true,
-                              fillColor: Colors.blue,
-                              isDense: true,
-                              labelStyle: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 20.0,
-                                  fontWeight: FontWeight.bold),
-                              border: OutlineInputBorder(),
-                              labelText: 'Incorrect Choice',
-                              hintText: 'Answer 3'),
-                        ))),
-                const Padding(
-                  padding: EdgeInsets.all(10.0),
-                ),
-                Expanded(
-                    child: Container(
-                        height: 100.0,
-                        margin: const EdgeInsets.only(left: 30.0, right: 30.0),
-                        child: TextField(
-                          onChanged: (String value) {
-                            setState(() {
-                              _incorrectChoice3 = value;
-                            });
-                          },
-                          controller: incorrectChoice3FieldController,
-                          style: const TextStyle(fontSize: 20.0),
-                          minLines: null,
-                          maxLines: null,
-                          expands: true,
-                          decoration: const InputDecoration(
-                              filled: true,
-                              fillColor: Colors.blue,
-                              isDense: true,
-                              labelStyle: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 20.0,
-                                  fontWeight: FontWeight.bold),
-                              border: OutlineInputBorder(),
-                              labelText: 'Incorrect Choice',
-                              hintText: 'Answer 4'),
-                        ))),
-                const Padding(padding: EdgeInsets.all(5.0))
-              ])),
-        ));
+                            hintStyle: hint,
+                            hintText: 'Incorrect Choice'),
+                      ))),
+              const Padding(
+                padding: EdgeInsets.all(10.0),
+              ),
+              Expanded(
+                  child: Container(
+                      height: 100.0,
+                      margin: const EdgeInsets.only(left: 30.0, right: 30.0),
+                      child: TextField(
+                        onChanged: (String value) {
+                          setState(() {
+                            _incorrectChoice2 = value;
+                          });
+                        },
+                        controller: incorrectChoice2FieldController,
+                        style: buttonTextStyleTom,
+                        minLines: null,
+                        maxLines: null,
+                        expands: true,
+                        decoration: const InputDecoration(
+                            filled: true,
+                            fillColor: Colors.blue,
+                            isDense: true,
+                            labelStyle: TextStyle(
+                                color: Colors.black,
+                                fontSize: 10.0,
+                                fontWeight: FontWeight.bold),
+                            border: OutlineInputBorder(),
+                            hintStyle: hint,
+                            hintText: 'Incorrect Choice'),
+                      ))),
+              const Padding(
+                padding: EdgeInsets.all(10.0),
+              ),
+              Expanded(
+                  child: Container(
+                      height: 100.0,
+                      margin: const EdgeInsets.only(left: 30.0, right: 30.0),
+                      child: TextField(
+                        onChanged: (String value) {
+                          setState(() {
+                            _incorrectChoice3 = value;
+                          });
+                        },
+                        controller: incorrectChoice3FieldController,
+                        style: buttonTextStyleTom,
+                        minLines: null,
+                        maxLines: null,
+                        expands: true,
+                        decoration: const InputDecoration(
+                            filled: true,
+                            fillColor: Colors.blue,
+                            isDense: true,
+                            labelStyle: TextStyle(
+                                color: Colors.black,
+                                fontSize: 10.0,
+                                fontWeight: FontWeight.bold),
+                            border: OutlineInputBorder(),
+                            hintStyle: hint,
+                            hintText: 'Incorrect Choice'),
+                      ))),
+              const Padding(padding: EdgeInsets.all(5.0))
+            ])),
+      ),
+      persistentFooterButtons: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            FloatingActionButton(
+              heroTag: "home",
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const HomePage()));
+              },
+              child: const Icon(Icons.home),
+            ),
+            FloatingActionButton(
+              heroTag: "save",
+              onPressed: _saveQuestion,
+              child: const Icon(
+                Icons.add,
+              ),
+            ),
+          ],
+        )
+      ],
+    );
   }
 
   void _saveQuestion() {
